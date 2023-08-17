@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from imblearn.over_sampling import RandomOverSampler
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import classification_report
 
 
@@ -56,11 +57,20 @@ test , X_test, y_test = scaled_dataset(test, oversample=False)
 # print(sum(y_train==0))
 
 
-#kNN SECTION
+# # kNN SECTION
 
-knn_model = KNeighborsClassifier(n_neighbors=1)
-knn_model.fit(X_train, y_train)
+# knn_model = KNeighborsClassifier(n_neighbors=1)
+# knn_model = knn_model.fit(X_train, y_train)
 
-y_pred = knn_model.predict(X_test)
+# y_pred = knn_model.predict(X_test)
+# print(classification_report(y_test, y_pred))
+
+
+#NAIVE BAYES SECTION
+
+nb_model = GaussianNB()
+nb_model = nb_model.fit(X_train, y_train)
+
+y_pred = nb_model.predict(X_test)
 print(classification_report(y_test, y_pred))
 
