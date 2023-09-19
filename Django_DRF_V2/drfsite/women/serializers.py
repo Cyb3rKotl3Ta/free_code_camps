@@ -13,8 +13,8 @@ from rest_framework.parsers import JSONParser
 class WomenSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=255)
     content = serializers.CharField() 
-    time_create = serializers.DateTimeField(auto_now_add=True) 
-    time_update = serializers.DateTimeField(auto_now=True) 
+    time_create = serializers.DateTimeField(read_only=True) 
+    time_update = serializers.DateTimeField(read_only=True) 
     is_published = serializers.BooleanField(default=True) 
     cat_id = serializers.IntegerField()
 
