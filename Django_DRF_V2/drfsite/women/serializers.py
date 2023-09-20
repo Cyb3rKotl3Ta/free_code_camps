@@ -5,14 +5,12 @@ import io
 from rest_framework.parsers import JSONParser
 
 
-# class WomenModel:
-#     def __init__(self, title, content):
-#         self.title = title
-#         self.content = content
 
 
 # equals to WomenSerializer(serializers.Serializer) that above al this code
 class WomenSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta: 
         model = Women
         fields = '__all__'
@@ -24,6 +22,12 @@ class WomenSerializer(serializers.ModelSerializer):
 
 
 
+
+
+# class WomenModel:
+#     def __init__(self, title, content):
+#         self.title = title
+#         self.content = content
 
 # def encode():
 #     model = WomenModel('title: Saspence', 'content: Hello World')
