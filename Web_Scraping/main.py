@@ -4,6 +4,8 @@ with open('Web_Scraping/index.html', 'r') as html_file:
     content = html_file.read()
 
     soup = BeautifulSoup(content, 'lxml')
+    print(soup.prettify())
+
     course_html_tag = soup.find('h5')
     courses_html_tags = soup.find_all('h5')
     course_cards = soup.find_all('div', class_='card')
