@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-with open('Web_Scraping/index.html', 'r') as html_file:
+with open('index.html', 'r') as html_file:
     content = html_file.read()
 
     soup = BeautifulSoup(content, 'lxml')
@@ -12,7 +12,7 @@ with open('Web_Scraping/index.html', 'r') as html_file:
     # print(courses_html_tags)
 
     for course in course_cards:
-        # print(course.text)
+        print(course.text)
         course_name = course.h5.text
         course_price = course.a.text.split()[-1]
 
