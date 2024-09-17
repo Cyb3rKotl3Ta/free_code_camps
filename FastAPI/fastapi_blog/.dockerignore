@@ -1,0 +1,9 @@
+# .dockerignore
+venv/               # Ignore local virtual environment
+__pycache__/        # Ignore Python cache files
+*.pyc               # Ignore compiled Python files
+*.pyo
+*.pyd
+*.db                # Ignore database files (if any)
+*.sqlite3           # Ignore SQLite database files
+.env                # Ignore local environment variables (optional)
