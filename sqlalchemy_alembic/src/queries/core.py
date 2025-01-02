@@ -28,7 +28,7 @@ class SyncCore:
     @staticmethod
     def insert_workers():
         with sync_engine.connect() as conn:
-            # stmt = """INSERT INTO workers (username) VALUES 
+            # stmt = """INSERT INTO workers (username) VALUES
             #     ('Jack'),
             #     ('Michael');"""
             stmt = insert(workers_table).values(
@@ -66,8 +66,8 @@ class SyncCore:
     def insert_resumes():
         with sync_engine.connect() as conn:
             resumes = [
-                {"title": "Python Junior Developer", "compensation": 50000, "workload": Workload.fulltime, "worker_id": 1},
-                {"title": "Python Разработчик", "compensation": 150000, "workload": Workload.fulltime, "worker_id": 1},
+                {"title": "Python Junior Developer", "compensation": 24000, "workload": Workload.fulltime, "worker_id": 1},
+                {"title": "Python Developer", "compensation": 150000, "workload": Workload.fulltime, "worker_id": 1},
                 {"title": "Python Data Engineer", "compensation": 250000, "workload": Workload.parttime, "worker_id": 2},
                 {"title": "Data Scientist", "compensation": 300000, "workload": Workload.fulltime, "worker_id": 2},
             ]
@@ -115,7 +115,7 @@ class SyncCore:
                 {"username": "Petr"},   # id 5
             ]
             resumes = [
-                {"title": "Python программист", "compensation": 60000, "workload": "fulltime", "worker_id": 3},
+                {"title": "Python Developer", "compensation": 60000, "workload": "fulltime", "worker_id": 3},
                 {"title": "Machine Learning Engineer", "compensation": 70000, "workload": "parttime", "worker_id": 3},
                 {"title": "Python Data Scientist", "compensation": 80000, "workload": "parttime", "worker_id": 4},
                 {"title": "Python Analyst", "compensation": 90000, "workload": "fulltime", "worker_id": 4},
@@ -132,7 +132,7 @@ class SyncCore:
         """
         WITH helper2 AS (
             SELECT *, compensation-avg_workload_compensation AS compensation_diff
-            FROM 
+            FROM
             (SELECT
                 w.id,
                 w.username,
@@ -176,7 +176,7 @@ class SyncCore:
             res = conn.execute(query)
             result = res.all()
             print(f"{len(result)=}. {result=}")
-            
+
     # Relationships отсутствуют при использовании Table
 
 
@@ -192,7 +192,7 @@ class AsyncCore:
     @staticmethod
     async def insert_workers():
         async with async_engine.connect() as conn:
-            # stmt = """INSERT INTO workers (username) VALUES 
+            # stmt = """INSERT INTO workers (username) VALUES
             #     ('Jack'),
             #     ('Michael');"""
             stmt = insert(workers_table).values(
@@ -213,7 +213,7 @@ class AsyncCore:
             print(f"{workers=}")
 
     @staticmethod
-    async def update_worker(worker_id: int = 2, new_username: str = "Misha"):
+    async def update_worker(worker_id: int = 2, new_username: str = "Oleg"):
         async with async_engine.connect() as conn:
             # stmt = text("UPDATE workers SET username=:username WHERE id=:id")
             # stmt = stmt.bindparams(username=new_username, id=worker_id)
@@ -231,7 +231,7 @@ class AsyncCore:
         async with async_engine.connect() as conn:
             resumes = [
                 {"title": "Python Junior Developer", "compensation": 50000, "workload": Workload.fulltime, "worker_id": 1},
-                {"title": "Python Разработчик", "compensation": 150000, "workload": Workload.fulltime, "worker_id": 1},
+                {"title": "Python Developer", "compensation": 150000, "workload": Workload.fulltime, "worker_id": 1},
                 {"title": "Python Data Engineer", "compensation": 250000, "workload": Workload.parttime, "worker_id": 2},
                 {"title": "Data Scientist", "compensation": 300000, "workload": Workload.fulltime, "worker_id": 2},
             ]
@@ -276,10 +276,10 @@ class AsyncCore:
             workers = [
                 {"username": "Artem"},  # id 3
                 {"username": "Roman"},  # id 4
-                {"username": "Petr"},   # id 5
+                {"username": "Petro"},   # id 5
             ]
             resumes = [
-                {"title": "Python программист", "compensation": 60000, "workload": "fulltime", "worker_id": 3},
+                {"title": "Python Developer", "compensation": 60000, "workload": "fulltime", "worker_id": 3},
                 {"title": "Machine Learning Engineer", "compensation": 70000, "workload": "parttime", "worker_id": 3},
                 {"title": "Python Data Scientist", "compensation": 80000, "workload": "parttime", "worker_id": 4},
                 {"title": "Python Analyst", "compensation": 90000, "workload": "fulltime", "worker_id": 4},
@@ -296,7 +296,7 @@ class AsyncCore:
         """
         WITH helper2 AS (
             SELECT *, compensation-avg_workload_compensation AS compensation_diff
-            FROM 
+            FROM
             (SELECT
                 w.id,
                 w.username,
