@@ -1,3 +1,3 @@
-INSERT INTO workers (username) VALUES 
-('Jack'),
-('Michael');
+INSERT INTO workers (username) VALUES
+('Jhon'),
+('Doe');
