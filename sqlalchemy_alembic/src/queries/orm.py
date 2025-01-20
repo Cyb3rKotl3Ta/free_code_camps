@@ -35,7 +35,7 @@ class SyncORM:
             query = select(WorkersOrm)
             result = session.execute(query)
             workers = result.scalars().all()
-            # print(f"{workers=}")
+            print(f"{workers=}")
 
     @staticmethod
     def update_worker(worker_id: int = 2, new_username: str = "Misha"):
@@ -59,7 +59,7 @@ class SyncORM:
                 title="Python Data Engineer", compensation=250000, workload=Workload.parttime, worker_id=2)
             resume_michael_2 = ResumesOrm(
                 title="Data Scientist", compensation=300000, workload=Workload.fulltime, worker_id=2)
-            session.add_all([resume_jack_1, resume_jack_2, 
+            session.add_all([resume_jack_1, resume_jack_2,
                              resume_michael_1, resume_michael_2])
             session.commit()
 
@@ -120,7 +120,7 @@ class SyncORM:
         """
         WITH helper2 AS (
             SELECT *, compensation-avg_workload_compensation AS compensation_diff
-            FROM 
+            FROM
             (SELECT
                 w.id,
                 w.username,
@@ -171,13 +171,13 @@ class SyncORM:
             query = (
                 select(WorkersOrm)
             )
-            
+
             res = session.execute(query)
             result = res.scalars().all()
 
             worker_1_resumes = result[0].resumes
             print(worker_1_resumes)
-            
+
             worker_2_resumes = result[1].resumes
             print(worker_2_resumes)
 
@@ -188,13 +188,13 @@ class SyncORM:
                 select(WorkersOrm)
                 .options(joinedload(WorkersOrm.resumes))
             )
-            
+
             res = session.execute(query)
             result = res.unique().scalars().all()
 
             worker_1_resumes = result[0].resumes
             print(worker_1_resumes)
-            
+
             worker_2_resumes = result[1].resumes
             print(worker_2_resumes)
 
@@ -205,13 +205,13 @@ class SyncORM:
                 select(WorkersOrm)
                 .options(selectinload(WorkersOrm.resumes))
             )
-            
+
             res = session.execute(query)
             result = res.scalars().all()
 
             worker_1_resumes = result[0].resumes
             # print(worker_1_resumes)
-            
+
             worker_2_resumes = result[1].resumes
             # print(worker_2_resumes)
 
@@ -243,7 +243,7 @@ class SyncORM:
 
     @staticmethod
     def select_workers_with_relationship_contains_eager_with_limit():
-        # Горячо рекомендую ознакомиться: https://stackoverflow.com/a/72298903/22259413 
+        # Горячо рекомендую ознакомиться: https://stackoverflow.com/a/72298903/22259413
         with session_factory() as session:
             subq = (
                 select(ResumesOrm.id.label("parttime_resume_id"))
@@ -279,7 +279,7 @@ class SyncORM:
             result_dto = [WorkersRelDTO.model_validate(row, from_attributes=True) for row in result_orm]
             print(f"{result_dto=}")
             return result_dto
-        
+
     @staticmethod
     def add_vacancies_and_replies():
         with session_factory() as session:
@@ -355,7 +355,7 @@ class AsyncORM:
                 title="Python Data Engineer", compensation=250000, workload=Workload.parttime, worker_id=2)
             resume_michael_2 = ResumesOrm(
                 title="Data Scientist", compensation=300000, workload=Workload.fulltime, worker_id=2)
-            session.add_all([resume_jack_1, resume_jack_2, 
+            session.add_all([resume_jack_1, resume_jack_2,
                              resume_michael_1, resume_michael_2])
             await session.commit()
 
@@ -416,7 +416,7 @@ class AsyncORM:
         """
         WITH helper2 AS (
             SELECT *, compensation-avg_workload_compensation AS compensation_diff
-            FROM 
+            FROM
             (SELECT
                 w.id,
                 w.username,
@@ -467,16 +467,16 @@ class AsyncORM:
             query = (
                 select(WorkersOrm)
             )
-            
+
             res = await session.execute(query)
             result = res.scalars().all()
 
             # worker_1_resumes = result[0].resumes  # -> Приведет к ошибке
             # Нельзя использовать ленивую подгрузку в асинхронном варианте!
 
-            # Ошибка: sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. 
+            # Ошибка: sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here.
             # Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
-            
+
 
     @staticmethod
     async def select_workers_with_joined_relationship():
@@ -485,13 +485,13 @@ class AsyncORM:
                 select(WorkersOrm)
                 .options(joinedload(WorkersOrm.resumes))
             )
-            
+
             res = await session.execute(query)
             result = res.unique().scalars().all()
 
             worker_1_resumes = result[0].resumes
             # print(worker_1_resumes)
-            
+
             worker_2_resumes = result[1].resumes
             # print(worker_2_resumes)
 
@@ -502,13 +502,13 @@ class AsyncORM:
                 select(WorkersOrm)
                 .options(selectinload(WorkersOrm.resumes))
             )
-            
+
             res = await session.execute(query)
             result = res.scalars().all()
 
             worker_1_resumes = result[0].resumes
             # print(worker_1_resumes)
-            
+
             worker_2_resumes = result[1].resumes
             # print(worker_2_resumes)
 
@@ -540,7 +540,7 @@ class AsyncORM:
 
     @staticmethod
     async def select_workers_with_relationship_contains_eager_with_limit():
-        # Горячо рекомендую ознакомиться: https://stackoverflow.com/a/72298903/22259413 
+        # Горячо рекомендую ознакомиться: https://stackoverflow.com/a/72298903/22259413
         async with async_session_factory() as session:
             subq = (
                 select(ResumesOrm.id.label("parttime_resume_id"))
@@ -576,7 +576,7 @@ class AsyncORM:
             result_dto = [WorkersRelDTO.model_validate(row, from_attributes=True) for row in result_orm]
             print(f"{result_dto=}")
             return result_dto
-        
+
     @staticmethod
     async def add_vacancies_and_replies():
         async with async_session_factory() as session:
